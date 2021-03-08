@@ -1,7 +1,16 @@
+import React from "react";
 import './StartPage.css'
+import { useHistory } from "react-router-dom";
 
 
-function StartPage() {
+const StartPage = () => {
+  const history = useHistory();
+
+  const handleSearch = () => {
+    history.push("/search");
+  };
+
+
   return (
       <div className="outer">
         <div className="inner">
@@ -10,8 +19,8 @@ function StartPage() {
         <p>Do you want to know the amount of people who live in a city? We are here to provide that for you</p>
         </div>
         <div className="b">
-        <button>Search by city</button>
-        <button>Search by country</button>
+        <button className="cityorcountry" onClick={handleSearch}>Search by city</button>
+        <button className="cityorcountry" onClick={handleSearch}>Search by country</button>
         </div>
         </div>
       </div>
