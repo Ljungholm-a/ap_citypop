@@ -1,40 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../StartPage/StartPage.js'
-import SearchBar from './SearchBar'
 import { useHistory } from "react-router-dom";
-import SearchList from './SearchList'
 
-const Search= (props) => {
+function Search() {
   const history = useHistory();
-    const [input, setInput] = useState('');
-    const [searchList, setSearchList] = useState();
-    const loc = props;
-
+  const [input, setInput] = useState('');
 
 const onPress = () => {
-  history.push('/result');
+    console.log('nämen', input);
+    history.push({
+      pathname: '/result',
+      state: {detail: input} 
+    })
 }
 
 
-/*const fetchData = async () => {
-    return await fetch('http://api.geonames.org/searchJSON?q=United&maxRows=10&fuzzy=0.8&username=weknowit')
-      .then(response => response.json())
-      .then(data => {
-         setSearchList(data) 
-       });
-    }*/
+  const updateInput = async (event) => {
+    console.log(event.target.value);
+    setInput(event.target.value);
+  }
 
 
-       const updateInput = async (input) => {
-        const searchWord = input;
-
-     }
-   
-    // useEffect( () => {fetchData()},[]);
     
-
-
-
     return(
         <div className="outer">
         <div className="inner">
@@ -43,11 +30,11 @@ const onPress = () => {
         <p className="text">Search by city</p>
         </div>
         <div className= "search">
-        <SearchBar 
-       input={input} 
-       onChange={updateInput}
-      />
-      <button className="searchButton"> Search </button>
+        <form >        
+          <input className="textField" type="text" onChange={updateInput} />        
+      </form>
+        
+      <button className="searchButton" onClick={onPress}> Search </button>
       </div>
         
               

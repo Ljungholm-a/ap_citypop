@@ -1,11 +1,59 @@
+import React, {useState, useEffect} from 'react';
+import {useLocation } from "react-router-dom";
+import ResultBox from './ResultBox';
 
 
+const Results = () => {
+      const location = useLocation()
+      const [searchList, setSearchList] = useState([]);
+      const [res, setRes] = useState('');
 
-const Results = () =>{
 
-    return(
-        <div>
-      <SearchList searchList= {[{"adminCode1":"ENG","lng":"-0.12574","geonameId":2643743,"toponymName":"London","countryId":"2635167","fcl":"P","population":7556900,"countryCode":"GB","name":"London","fclName":"city, village,...","adminCodes1":{"ISO3166_2":"ENG"},"countryName":"United Kingdom","fcodeName":"capital of a political entity","adminName1":"England","lat":"51.50853","fcode":"PPLC"},{"adminCode1":"ENG","lng":"-0.30864","geonameId":11591955,"toponymName":"London","countryId":"2635167","fcl":"L","population":8787892,"countryCode":"GB","name":"Central London","fclName":"parks,area, ...","adminCodes1":{"ISO3166_2":"ENG"},"countryName":"United Kingdom","fcodeName":"region","adminName1":"England","lat":"51.49227","fcode":"RGN"},{"adminCode1":"08","lng":"-81.23304","geonameId":6058560,"toponymName":"London","countryId":"6251999","fcl":"P","population":346765,"countryCode":"CA","name":"London","fclName":"city, village,...","adminCodes1":{"ISO3166_2":"ON"},"countryName":"Canada","fcodeName":"populated place","adminName1":"Ontario","lat":"42.98339","fcode":"PPL"},{"adminCode1":"KY","lng":"-84.08326","geonameId":4298960,"toponymName":"London","countryId":"6252001","fcl":"P","population":8126,"countryCode":"US","name":"London","fclName":"city, village,...","adminCodes1":{"ISO3166_2":"KY"},"countryName":"United States","fcodeName":"seat of a second-order administrative division","adminName1":"Kentucky","lat":"37.12898","fcode":"PPLA2"},{"adminCode1":"38","lng":"120.9863","geonameId":1969185,"toponymName":"Londoe","countryId":"1643084","fcl":"P","population":0,"countryCode":"ID","name":"Londoe","fclName":"city, village,...","adminCodes1":{"ISO3166_2":"SN"},"countryName":"Indonesia","fcodeName":"populated place","adminName1":"South Sulawesi","lat":"-2.6005","fcode":"PPL"},{"adminCode1":"16","lng":"116.7209","geonameId":1756964,"toponymName":"Lonkoi","countryId":"1733045","fcl":"T","population":0,"countryCode":"MY","name":"Lonkoi","fclName":"mountain,hill,rock,... ","adminCodes1":{"ISO3166_2":"12"},"countryName":"Malaysia","fcodeName":"mountain","adminName1":"Sabah","lat":"5.9584","fcode":"MT"},{"adminCode1":"03","lng":"72.83319","geonameId":1378056,"toponymName":"Londai","countryId":"1168579","fcl":"P","population":0,"countryCode":"PK","name":"Londai","fclName":"city, village,...","adminCodes1":{"ISO3166_2":"KP"},"countryName":"Pakistan","fcodeName":"populated place","adminName1":"Khyber Pakhtunkhwa","lat":"34.82495","fcode":"PPL"},{"adminCode1":"02","lng":"69.96107","geonameId":1337971,"toponymName":"Londai","countryId":"1168579","fcl":"P","population":0,"countryCode":"PK","name":"Londai","fclName":"city, village,...","adminCodes1":{"ISO3166_2":"BA"},"countryName":"Pakistan","fcodeName":"populated place","adminName1":"Balochistan","lat":"31.10884","fcode":"PPL"},{"adminCode1":"WV","lng":"-81.36872","geonameId":4812926,"toponymName":"London","countryId":"6252001","fcl":"P","population":0,"countryCode":"US","name":"London","fclName":"city, village,...","adminCodes1":{"ISO3166_2":"WV"},"countryName":"United States","fcodeName":"populated place","adminName1":"West Virginia","lat":"38.19455","fcode":"PPL"},{"adminCode1":"08","lng":"-81.29975","geonameId":6058559,"toponymName":"London","countryId":"6251999","fcl":"L","population":0,"countryCode":"CA","name":"London","fclName":"parks,area, ...","adminCodes1":{"ISO3166_2":"ON"},"countryName":"Canada","fcodeName":"area","adminName1":"Ontario","lat":"43.08339","fcode":"AREA"}]} />
+      /*const fetchData = async () => {
+        console.log('http://api.geonames.org/searchJSON?q=' + location.state.detail+'&fuzzy=0.6&username=weknowit');
+        const response = await fetch('http://api.geonames.org/searchJSON?q=' + location.state.detail+'&fuzzy=0.6&username=weknowit');
+        const data = await response.json().geonames;
+        console.log("in fetch")
+        setSearchList((data));
+        console.log('List' , searchList);
+        console.log(data);
+
+      
+      }*/
+
+      const fetchData = async () => {
+        console.log('http://api.geonames.org/searchJSON?q=' + location.state.detail+'&fuzzy=0.6&username=weknowit');
+        const data = await fetch('http://api.geonames.org/searchJSON?q=' + location.state.detail+'&fuzzy=0.6&username=weknowit')
+        .then(res => {
+          return res.json();
+        })
+        .then(json => {
+          return json.geonames;
+        }) 
+        setSearchList(data);
+        console.log(data);
+        console.log(data[1].population);
+        setRes(data[1].population);
+
+      }
+      
+      useEffect( () => {fetchData()},[]);
+
+      
+      return(
+        
+        <div className="outer">
+        <div className="inner">
+        <h1>Citypop</h1>
+        <div className="text">
+         <p className="text">{location.state.detail}</p>
+         <ResultBox result= {res}></ResultBox>
+         
         </div>
-    );
-}
+        </div>
+        </div>
+  
+       ) }
+    
+
+export default Results;
