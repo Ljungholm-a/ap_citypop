@@ -4,19 +4,15 @@ import ResultBox from "./ResultBox";
 import "../StartPage/StartPage.js";
 
 const Results = () => {
+  const waiting = [{ population: 0.5 }, { population: 0.5 }];
   const history = useHistory();
   const location = useLocation();
-  const [searchList, setSearchList] = useState([]);
-  const [res, setRes] = useState("");
-  //setRes(0);
+  const [res, setRes] = useState(0.5);
+  const [country, setCountry] = useState("");
 
   const fetchData = async () => {
     console.log(location.state.detail);
-    console.log(
-      "http://api.geonames.org/searchJSON?q=" +
-        location.state.detail +
-        "&fuzzy=0.6&username=weknowit"
-    );
+    console.log(res);
     const data = await fetch(
       "http://api.geonames.org/searchJSON?q=" +
         location.state.detail +
@@ -28,10 +24,24 @@ const Results = () => {
       .then((json) => {
         return json.geonames;
       });
-    setSearchList(data);
-    console.log(data);
-    console.log(data[1].population);
-    setRes(data[1].population);
+    var i;
+    var tempRes = 0;
+    for (i = 0; i < data.length; i++) {
+      console.log("i: ", i);
+      if (data[i].fclName == "city, village,...") {
+        tempRes = data[i];
+        break;
+      }
+    }
+
+    if (tempRes === 0) {
+      tempRes = { population: 0.1 };
+      console.log("nod data");
+    }
+    console.log(tempRes);
+
+    setRes(tempRes.population);
+    setCountry(tempRes.countryName);
   };
 
   const handleClick = () => {
@@ -47,12 +57,13 @@ const Results = () => {
   return (
     <div className="outer">
       <div className="inner">
-        <h1>Citypop</h1>
+        <h1>CityPop</h1>
         <div className="text">
-          <p className="text">{location.state.detail}</p>
+          <p className="text">
+            {location.state.detail} {country}
+          </p>
           <ResultBox result={res}></ResultBox>
           <button className="redo" onClick={handleClick}>
-            {" "}
             Redo Search
           </button>
         </div>
