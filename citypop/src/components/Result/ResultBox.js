@@ -16,7 +16,7 @@ const ResultBox = (props) =>
   ) : (
     <div className="box">
       <p>Population: </p>
-      {props.result}
+      <CountUp end={props.result} duration={1} />
     </div>
   );
 

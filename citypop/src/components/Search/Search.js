@@ -29,6 +29,23 @@ function Search() {
     });
   };
 
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      if (location.state.detail === "city") {
+        history.push({
+          pathname: "/result",
+          state: { detail: input },
+        });
+      } else {
+        console.log("nämen", input);
+        history.push({
+          pathname: "/searchCountry",
+          state: { detail: input },
+        });
+      }
+    }
+  };
+
   const updateInput = async (event) => {
     console.log(event.target.value);
     setInput(event.target.value);
@@ -43,7 +60,12 @@ function Search() {
         </div>
         <div className="search">
           <form>
-            <input className="textField" type="text" onChange={updateInput} />
+            <input
+              className="textField"
+              type="text"
+              onKeyDown={handleEnter}
+              onChange={updateInput}
+            />
           </form>
           <button className="searchButton" onClick={onPress}>
             Search

@@ -93,7 +93,7 @@ h1 {
   border: none;
   background: none;
   background-color: #e8e8e8;
-  
+
   font-size: 6vh;
   border-radius: 0.5vw;
 }
@@ -126,7 +126,7 @@ p {
   cursor: pointer;
 }
 
-.cityButton{
+.cityButton {
   margin-top: 5%;
   justify-content: center;
   align-items: center;
@@ -136,5 +136,4 @@ p {
   background: none;
   cursor: pointer;
   color: white;
-
 }

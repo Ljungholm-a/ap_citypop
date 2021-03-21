@@ -23,7 +23,7 @@ function TopThree({ result }) {
     ) : result.length === 0 ? (
       <div className="box">
         <button className="cityButton" onClick={onPress} key={item.geonameId}>
-          nothing
+          error in API call, try again in a minute
         </button>
       </div>
     ) : (
