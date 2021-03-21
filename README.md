@@ -1,2 +1,2 @@
 # ap_citypop
-arbetsprov
+Program that fetch info from geonames API
