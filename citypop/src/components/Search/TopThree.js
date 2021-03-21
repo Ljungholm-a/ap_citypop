@@ -6,7 +6,6 @@ function TopThree({ result }) {
   const history = useHistory();
 
   const onPress = (e) => {
-    console.log("jamen", e.target.textContent);
     history.push({
       pathname: "/result",
       state: { detail: e.target.textContent },
@@ -17,7 +16,7 @@ function TopThree({ result }) {
     item.name === "..." ? (
       <div className="box">
         <button className="cityButton" onClick={onPress} key={item.geonameId}>
-          <div class="dot-gathering"></div>{" "}
+          <div className="dot-gathering"></div>{" "}
         </button>
       </div>
     ) : result.length === 0 ? (

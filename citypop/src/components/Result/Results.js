@@ -4,55 +4,48 @@ import ResultBox from "./ResultBox";
 import "../StartPage/StartPage.js";
 
 const Results = () => {
-  const waiting = [{ population: 0.5 }, { population: 0.5 }];
   const history = useHistory();
   const location = useLocation();
   const [res, setRes] = useState(0.5);
   const [country, setCountry] = useState("");
 
-  const fetchData = async () => {
-    console.log(location.state.detail);
-    console.log(res);
-    const data = await fetch(
-      "http://api.geonames.org/searchJSON?q=" +
-        location.state.detail +
-        "&fuzzy=0.6&username=weknowit"
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        return json.geonames;
-      });
-    var i;
-    var tempRes = 0;
-    for (i = 0; i < data.length; i++) {
-      console.log("i: ", i);
-      if (data[i].fclName == "city, village,...") {
-        tempRes = data[i];
-        break;
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch(
+        "http://api.geonames.org/searchJSON?q=" +
+          location.state.detail +
+          "&fuzzy=0.6&username=weknowit"
+      )
+        .then((res) => {
+          return res.json();
+        })
+        .then((json) => {
+          return json.geonames;
+        });
+      var i;
+      var tempRes = 0;
+      for (i = 0; i < data.length; i++) {
+        if (data[i].fclName === "city, village,...") {
+          tempRes = data[i];
+          break;
+        }
       }
-    }
 
-    if (tempRes === 0) {
-      tempRes = { population: 0.1 };
-      console.log("nod data");
-    }
-    console.log(tempRes);
+      if (tempRes === 0) {
+        tempRes = { population: 0.1 };
+      }
 
-    setRes(tempRes.population);
-    setCountry(tempRes.countryName);
-  };
+      setRes(tempRes.population);
+      setCountry(tempRes.countryName);
+    };
+    fetchData();
+  });
 
   const handleClick = () => {
     history.push({
       pathname: "/",
     });
   };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <div className="outer">

@@ -8,14 +8,12 @@ function Search() {
   const [input, setInput] = useState("");
 
   const onPress = () => {
-    console.log("Nämen: ", input);
     if (location.state.detail === "city") {
       history.push({
         pathname: "/result",
         state: { detail: input },
       });
     } else {
-      console.log("nämen", input);
       history.push({
         pathname: "/searchCountry",
         state: { detail: input },
@@ -37,7 +35,6 @@ function Search() {
           state: { detail: input },
         });
       } else {
-        console.log("nämen", input);
         history.push({
           pathname: "/searchCountry",
           state: { detail: input },
@@ -47,7 +44,6 @@ function Search() {
   };
 
   const updateInput = async (event) => {
-    console.log(event.target.value);
     setInput(event.target.value);
   };
 
@@ -61,6 +57,7 @@ function Search() {
         <div className="search">
           <form>
             <input
+              placeholder="Search..."
               className="textField"
               type="text"
               onKeyDown={handleEnter}

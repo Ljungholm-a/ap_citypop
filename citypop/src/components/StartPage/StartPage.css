@@ -70,7 +70,8 @@ h1 {
 
 .searchButton {
   font-family: "Inder", sans-serif;
-  font-size: 3vh;
+  font-size: 2vh;
+  height: 8vh;
   padding: 0;
   border: none;
   background: none;
@@ -83,9 +84,14 @@ h1 {
   margin-left: 2%;
 }
 
+form {
+  height: 8vh;
+}
+
 .search {
   display: flex;
   justify-content: center;
+  margin-left: 7%;
 }
 
 .textField {
@@ -93,9 +99,15 @@ h1 {
   border: none;
   background: none;
   background-color: #e8e8e8;
-
-  font-size: 6vh;
   border-radius: 0.5vw;
+  height: 8vh;
+  box-sizing: border-box;
+  padding: 0.7em 1.2em;
+}
+.textField:focus {
+  border: none;
+  border-color: none;
+  border-style: none;
 }
 
 .box {
