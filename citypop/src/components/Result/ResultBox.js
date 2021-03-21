@@ -6,7 +6,7 @@ const ResultBox = (props) =>
   props.result === 0.5 ? (
     <div className="box">
       <p>Population: </p>
-      waiting
+      <div class="dot-gathering"></div>
     </div>
   ) : props.result === 0.1 ? (
     <div className="box">

@@ -17,7 +17,7 @@ function TopThree({ result }) {
     item.name === "..." ? (
       <div className="box">
         <button className="cityButton" onClick={onPress} key={item.geonameId}>
-          waiting
+          <div class="dot-gathering"></div>{" "}
         </button>
       </div>
     ) : result.length === 0 ? (

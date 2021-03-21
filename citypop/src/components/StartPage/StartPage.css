@@ -137,3 +137,51 @@ p {
   cursor: pointer;
   color: white;
 }
+
+.dot-gathering {
+  position: relative;
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 0.4em;
+  background-color: white;
+  color: transparent;
+  margin: -0.0625em 0;
+  margin-left: 48%;
+  margin-top: 0.3em;
+}
+
+.dot-gathering::before,
+.dot-gathering::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: -3.125em;
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 0.4em;
+  background-color: white;
+  color: transparent;
+  opacity: 0;
+  animation: dotGathering 2s infinite ease-in;
+}
+
+.dot-gathering::after {
+  animation-delay: 0.5s;
+}
+
+@keyframes dotGathering {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  35%,
+  60% {
+    opacity: 1;
+    transform: translateX(3.125em);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(6.25em);
+  }
+}
